@@ -4,14 +4,61 @@
 
 ---
 
-## 画面設計図
+## ER図
 
-### Figma URL
+### テーブル構成
 
-| 種別 | URL |
-|------|-----|
-| 画面遷移図（STEP 1 画面一覧 / STEP 2 つながり整理 / STEP 3 ワイヤーフレーム） | https://www.figma.com/design/yxK2guVBfQnTEpiOlwNdnD/%E8%B3%87%E6%A0%BC%E5%8F%96%E5%BE%97%E7%89%B9%E5%8C%96-%E5%AD%A6%E7%BF%92%E7%BF%92%E6%85%A3%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9?node-id=0-1&t=82gBl93dlKZPa5nM-1 |
+```
+users ||--o{ certifications : "has"
+certifications ||--o{ study_logs : "has"
+```
 
+### テーブル詳細
+
+#### users テーブル
+
+| カラム名 | 型 | 説明 |
+|---|---|---|
+| id | bigint | 主キー |
+| name | string | ユーザーの表示名 |
+| email | string | ログイン用メールアドレス（ユニーク制約） |
+| encrypted_password | string | Deviseが管理する暗号化パスワード |
+| created_at | datetime | 作成日時 |
+| updated_at | datetime | 更新日時 |
+
+#### certifications テーブル
+
+| カラム名 | 型 | 説明 |
+|---|---|---|
+| id | bigint | 主キー |
+| user_id | bigint | 外部キー（users.id） |
+| name | string | 資格名（例：Java Gold） |
+| exam_date | date | 試験日（時刻不要のため date 型） |
+| target_minutes | integer | 目標学習時間（分単位で保持し計算をシンプルにする） |
+| created_at | datetime | 作成日時 |
+| updated_at | datetime | 更新日時 |
+
+#### study_logs テーブル
+
+| カラム名 | 型 | 説明 |
+|---|---|---|
+| id | bigint | 主キー |
+| certification_id | bigint | 外部キー（certifications.id） |
+| studied_minutes | integer | 学習時間（分単位） |
+| logged_on | date | 学習日（日付単位の集計クエリに合わせて date 型） |
+| memo | text | 学習内容メモ（任意入力・null 許容） |
+| created_at | datetime | 作成日時 |
+| updated_at | datetime | 更新日時 |
+
+### リレーション
+
+| リレーション | 説明 |
+|---|---|
+| users 1対多 certifications | 1人のユーザーが複数の資格を登録できる |
+| certifications 1対多 study_logs | 1つの資格に複数の学習記録がひもづく |
+
+> ※ ER図のスクリーンショットはPRのコメント欄に添付しています。
+![alt text](image.png)
 ---
 
 ## 1. サービス概要
