@@ -4,6 +4,16 @@
 
 ---
 
+## 画面設計図
+
+### Figma URL
+
+| 種別 | URL |
+|------|-----|
+| 画面遷移図（STEP 1 画面一覧 / STEP 2 つながり整理 / STEP 3 ワイヤーフレーム） | https://www.figma.com/design/yxK2guVBfQnTEpiOlwNdnD/%E8%B3%87%E6%A0%BC%E5%8F%96%E5%BE%97%E7%89%B9%E5%8C%96-%E5%AD%A6%E7%BF%92%E7%BF%92%E6%85%A3%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9?node-id=0-1&t=82gBl93dlKZPa5nM-1 |
+
+---
+
 ## 1. サービス概要
 
 | 項目 | 内容 |
