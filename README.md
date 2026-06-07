@@ -56,6 +56,62 @@ docker compose up
 
 ---
 
+## Renderへのデプロイ手順
+
+### 無料枠について
+
+| リソース | 無料枠 |
+|---|---|
+| Webサービス | 無料（15分間操作がないとスリープ） |
+| PostgreSQL | 90日間無料（以降 $7/月〜） |
+
+### 初回セットアップ
+
+#### 1. Renderアカウント作成
+
+[https://render.com](https://render.com) でアカウントを作成し、GitHubと連携してください。
+
+#### 2. Blueprint（render.yaml）でサービスを一括作成
+
+Renderダッシュボード → **New** → **Blueprint** を選択し、このリポジトリを選ぶと `render.yaml` の定義に従って以下が自動作成されます。
+
+- Webサービス：`pace-study-app`
+- PostgreSQL：`pace-study-db`
+
+#### 3. RAILS_MASTER_KEY を設定
+
+`render.yaml` の `sync: false` 設定により `RAILS_MASTER_KEY` は手動設定が必要です。
+
+```bash
+# ローカルで master.key の値を確認
+cat config/master.key
+```
+
+Renderダッシュボード → `pace-study-app` → **Environment** → `RAILS_MASTER_KEY` に上記の値を貼り付けてください。
+
+#### 4. 初回デプロイ
+
+Webサービスのページで **Manual Deploy** → **Deploy latest commit** をクリックするとビルドが開始されます。
+
+ビルドスクリプト（`bin/render-build.sh`）が以下を自動実行します：
+
+```
+bundle install
+rails assets:precompile
+rails assets:clean
+rails db:migrate
+```
+
+#### 5. 動作確認
+
+デプロイ完了後、`https://pace-study-app.onrender.com` でアクセスできます。
+
+### 2回目以降のデプロイ
+
+`main` ブランチへのpushで自動デプロイされます（Render側でAuto-Deployが有効な場合）。
+
+---
+
 ## 技術スタック
 
 | 項目 | 技術 |
