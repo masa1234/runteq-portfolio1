@@ -350,3 +350,64 @@ certifications ||--o{ study_logs : "has"
 > ※ ER図のスクリーンショットはPRのコメント欄に添付しています。
 ![alt text](image.png)
 ---
+
+## 開発環境のセットアップ
+
+### 必要なもの
+
+- Docker Desktop（WSL2 統合を有効化すること）
+- Git
+
+### 初回セットアップ手順
+
+```bash
+# 1. リポジトリのクローン
+git clone <リポジトリURL>
+cd runteq-portfolio1
+
+# 2. 環境変数ファイルの作成
+cp .env.example .env
+
+# 3. Railsプロジェクトの新規作成（初回のみ）
+docker compose run --no-deps web rails new . --force --database=postgresql --css=tailwind
+
+# 4. database.yml を Docker 用に上書き
+#    （config/database.yml はリポジトリ管理のファイルを使用）
+git checkout config/database.yml
+
+# 5. イメージのビルド
+docker compose build
+
+# 6. データベースの作成
+docker compose run web rails db:create
+
+# 7. サーバーの起動
+docker compose up
+```
+
+ブラウザで http://localhost:3000 にアクセスして動作確認してください。
+
+### よく使うコマンド
+
+| コマンド | 説明 |
+|---|---|
+| `docker compose up` | サーバー起動 |
+| `docker compose down` | サーバー停止 |
+| `docker compose exec web bash` | コンテナ内のシェルに入る |
+| `docker compose exec web rails c` | Rails コンソール |
+| `docker compose exec web rails db:migrate` | マイグレーション実行 |
+| `docker compose exec web bundle exec rspec` | テスト実行 |
+
+### 技術スタック
+
+| 項目 | 技術 |
+|---|---|
+| フレームワーク | Ruby on Rails 7.1 |
+| DB | PostgreSQL 15 |
+| CSS | Tailwind CSS |
+| フロントエンド | Hotwire（Turbo / Stimulus）|
+| 認証 | Devise |
+| コンテナ | Docker / Docker Compose |
+| デプロイ | Render / Railway |
+
+---
