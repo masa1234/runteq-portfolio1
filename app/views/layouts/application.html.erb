@@ -12,13 +12,30 @@
   </head>
 
   <body>
+    <header class="bg-white shadow-sm">
+      <nav class="container mx-auto px-5 py-4 flex items-center justify-between">
+        <%= link_to "合格ペース管理アプリ", root_path, class: "text-lg font-bold text-gray-900" %>
+        <div class="flex items-center space-x-4 text-sm">
+          <% if user_signed_in? %>
+            <span class="text-gray-600"><%= current_user.name %> さん</span>
+            <%= button_to "ログアウト", destroy_user_session_path, method: :delete,
+                class: "text-gray-600 hover:text-blue-600 cursor-pointer" %>
+          <% else %>
+            <%= link_to "ログイン", new_user_session_path, class: "text-gray-600 hover:text-blue-600" %>
+            <%= link_to "新規登録", new_user_registration_path,
+                class: "bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition" %>
+          <% end %>
+        </div>
+      </nav>
+    </header>
+
     <% if notice %>
       <p class="py-2 px-3 bg-green-50 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
     <% if alert %>
       <p class="py-2 px-3 bg-red-50 text-red-500 font-medium rounded-lg inline-block" id="alert"><%= alert %></p>
     <% end %>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main class="container mx-auto mt-12 px-5 flex">
       <%= yield %>
     </main>
   </body>
