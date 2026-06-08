@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: 基本情報技術者試験
+  exam_date: <%= 30.days.from_now.to_date %>
+  target_minutes: 6000
+  user: one
+
+two:
+  name: 応用情報技術者試験
+  exam_date: <%= 90.days.from_now.to_date %>
+  target_minutes: 12000
+  user: two
