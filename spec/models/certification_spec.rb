@@ -157,6 +157,51 @@ RSpec.describe Certification, type: :model do
     end
   end
 
+  # ---------------------------------------------------------------
+  # remaining_days
+  # ---------------------------------------------------------------
+  describe "#remaining_days" do
+    it "試験日まで30日ある場合は30を返す" do
+      cert = build_cert(exam_days_from_now: 30)
+      expect(cert.remaining_days).to eq(30)
+    end
+
+    it "試験日まで1日の場合は1を返す" do
+      cert = build_cert(exam_days_from_now: 1)
+      expect(cert.remaining_days).to eq(1)
+    end
+  end
+
+  # ---------------------------------------------------------------
+  # achievement_rate
+  # ---------------------------------------------------------------
+  describe "#achievement_rate" do
+    it "学習ゼロの場合は0を返す" do
+      cert = build_cert(target_minutes: 300)
+      allow(cert).to receive(:total_studied_minutes).and_return(0)
+      expect(cert.achievement_rate).to eq(0)
+    end
+
+    it "50%達成している場合は50を返す" do
+      cert = build_cert(target_minutes: 300)
+      allow(cert).to receive(:total_studied_minutes).and_return(150)
+      expect(cert.achievement_rate).to eq(50)
+    end
+
+    it "目標を超過しても100を上限とする" do
+      cert = build_cert(target_minutes: 300)
+      allow(cert).to receive(:total_studied_minutes).and_return(400)
+      expect(cert.achievement_rate).to eq(100)
+    end
+
+    it "小数は切り捨てる" do
+      cert = build_cert(target_minutes: 300)
+      allow(cert).to receive(:total_studied_minutes).and_return(100)
+      # 100/300 = 33.3... → 33
+      expect(cert.achievement_rate).to eq(33)
+    end
+  end
+
   after(:each) do
     user.destroy
   end
