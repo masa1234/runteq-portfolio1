@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_06_08_125043) do
+ActiveRecord::Schema[7.1].define(version: 2026_06_08_232320) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,16 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_08_125043) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_certifications_on_user_id"
+  end
+
+  create_table "study_logs", force: :cascade do |t|
+    t.integer "studied_minutes"
+    t.date "logged_on"
+    t.text "memo"
+    t.bigint "certification_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["certification_id"], name: "index_study_logs_on_certification_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -38,4 +48,5 @@ ActiveRecord::Schema[7.1].define(version: 2026_06_08_125043) do
   end
 
   add_foreign_key "certifications", "users"
+  add_foreign_key "study_logs", "certifications"
 end

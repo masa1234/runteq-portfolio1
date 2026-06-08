@@ -54,7 +54,6 @@
     <% end %>
   </div>
 
-  <%# 学習を記録するボタン（#11 で new_certification_study_log_path(@certification) に変更する） %>
-  <%= link_to "学習を記録する", "#",
+  <%= link_to "学習を記録する", new_certification_study_log_path(@certification),
       class: "block w-full text-center bg-blue-600 text-white font-semibold py-3 px-6 rounded-md hover:bg-blue-700 transition" %>
 </div>

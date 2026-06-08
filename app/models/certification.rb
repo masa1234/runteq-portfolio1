@@ -10,8 +10,6 @@ class Certification < ApplicationRecord
 
   def total_studied_minutes
     study_logs.sum(:studied_minutes)
-  rescue NameError, ActiveRecord::StatementInvalid
-    0
   end
 
   def remaining_days
