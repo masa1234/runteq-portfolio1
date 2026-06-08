@@ -18,11 +18,7 @@ class CertificationsController < ApplicationController
 
   def show
     @certification = current_user.certifications.find(params[:id])
-    @recent_logs = begin
-      @certification.study_logs.order(logged_on: :desc).limit(3).to_a
-    rescue NameError, ActiveRecord::StatementInvalid
-      []
-    end
+    @recent_logs = @certification.study_logs.order(logged_on: :desc).limit(3)
   end
 
   private
