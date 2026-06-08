@@ -1,6 +1,26 @@
-<div class="min-h-screen w-full">
-  <h1 class="text-2xl font-bold text-gray-900 mb-2"><%= current_user.name %> さんのマイページ</h1>
-  <p class="text-gray-500"><%= current_user.email %></p>
-  <%# TODO: #5 マイページの実装で、登録資格名の表示・ログアウトボタンなどを追加する %>
-  <p class="mt-8 text-sm text-gray-400">🚧 現在開発中です 🚧</p>
+<div class="w-full max-w-2xl mx-auto py-8">
+  <h1 class="text-2xl font-bold text-gray-900 mb-6">マイページ</h1>
+
+  <div class="bg-white rounded-lg shadow p-6 mb-6">
+    <h2 class="text-lg font-semibold text-gray-900 mb-4">アカウント情報</h2>
+    <dl class="space-y-2">
+      <div class="flex">
+        <dt class="w-32 text-sm text-gray-500">お名前</dt>
+        <dd class="text-gray-900"><%= current_user.name %></dd>
+      </div>
+      <div class="flex">
+        <dt class="w-32 text-sm text-gray-500">メールアドレス</dt>
+        <dd class="text-gray-900"><%= current_user.email %></dd>
+      </div>
+    </dl>
+  </div>
+
+  <div class="bg-white rounded-lg shadow p-6 mb-6">
+    <h2 class="text-lg font-semibold text-gray-900 mb-4">登録資格</h2>
+    <%# TODO: #6/#7 で Certification モデル実装後、登録済みの資格名を表示する %>
+    <p class="text-gray-500">資格はまだ登録されていません。</p>
+  </div>
+
+  <%= button_to "ログアウト", destroy_user_session_path, method: :delete,
+      class: "bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-md hover:bg-gray-300 transition cursor-pointer" %>
 </div>
