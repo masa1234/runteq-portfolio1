@@ -1,0 +1,19 @@
+<div class="w-full max-w-2xl mx-auto py-8">
+  <h1 class="text-2xl font-bold text-gray-900 mb-6"><%= @certification.name %></h1>
+
+  <div class="bg-white rounded-lg shadow p-6 mb-6">
+    <dl class="space-y-2">
+      <div class="flex">
+        <dt class="w-40 text-sm text-gray-500">試験日</dt>
+        <dd class="text-gray-900"><%= @certification.exam_date.strftime("%Y年%m月%d日") %></dd>
+      </div>
+      <div class="flex">
+        <dt class="w-40 text-sm text-gray-500">目標学習時間</dt>
+        <dd class="text-gray-900"><%= @certification.target_minutes %> 分</dd>
+      </div>
+    </dl>
+  </div>
+
+  <%# TODO: #8/#9 でペース判定バッジ・今日のノルマ・進捗バーなどダッシュボード本体を実装する %>
+  <p class="text-sm text-gray-400">🚧 ダッシュボードは現在開発中です 🚧</p>
+</div>
