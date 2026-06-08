@@ -1,0 +1,50 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-50">
+  <div class="w-full max-w-md bg-white rounded-lg shadow p-8">
+    <h2 class="text-2xl font-bold text-gray-900 mb-2 text-center">資格を登録する</h2>
+    <p class="text-sm text-gray-500 mb-6 text-center">受験する資格と試験日、目標の学習時間を登録してください。</p>
+
+    <% if @certification.errors.any? %>
+      <div id="error_explanation" class="mb-4 py-2 px-3 bg-red-50 text-red-500 rounded-lg text-sm">
+        <p class="font-medium">
+          <%= I18n.t("errors.messages.not_saved", count: @certification.errors.count, resource: "資格情報") %>
+        </p>
+        <ul class="list-disc list-inside mt-1">
+          <% @certification.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_with model: @certification, url: certifications_path, data: { controller: "quota-preview" } do |f| %>
+      <div class="mb-4">
+        <%= f.label :name, "資格名", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.text_field :name, autofocus: true,
+            class: "w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500",
+            placeholder: "基本情報技術者試験" %>
+      </div>
+
+      <div class="mb-4">
+        <%= f.label :exam_date, "試験日", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.date_field :exam_date,
+            class: "w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500",
+            data: { quota_preview_target: "examDate", action: "input->quota-preview#update" } %>
+      </div>
+
+      <div class="mb-4">
+        <%= f.label :target_minutes, "目標学習時間（分）", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.number_field :target_minutes, min: 1,
+            class: "w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500",
+            placeholder: "6000",
+            data: { quota_preview_target: "targetMinutes", action: "input->quota-preview#update" } %>
+      </div>
+
+      <p class="mb-6 text-sm text-blue-700 bg-blue-50 rounded-md px-3 py-2" data-quota-preview-target="output" hidden>
+        試験日まで毎日 <span data-quota-preview-target="quota" class="font-bold"></span> 分のペースで学習すると目標に到達できます
+      </p>
+
+      <%= f.submit "登録する",
+          class: "w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition cursor-pointer" %>
+    <% end %>
+  </div>
+</div>
