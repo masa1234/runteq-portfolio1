@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get "mypage" => "mypage#index", as: :mypage
 
   resources :certifications, only: [:new, :create, :show] do
-    resources :study_logs, only: [:new, :create]
+    resources :study_logs, only: [:new, :create, :index]
   end
 
   root "home#index"

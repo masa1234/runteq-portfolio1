@@ -1,0 +1,72 @@
+<div class="w-full max-w-2xl mx-auto py-8">
+  <h1 class="text-2xl font-bold text-gray-900 mb-1">進捗確認</h1>
+  <p class="text-sm text-gray-500 mb-6"><%= @certification.name %></p>
+
+  <%# メトリクス（累計学習時間・達成率・残り日数） %>
+  <div class="bg-white rounded-lg shadow p-6 mb-6 grid grid-cols-3 gap-4 text-center">
+    <div>
+      <p class="text-xs text-gray-500 mb-1">累計学習時間</p>
+      <p class="text-2xl font-bold text-gray-900">
+        <%= @certification.total_studied_minutes %><span class="text-sm font-normal text-gray-500 ml-1">分</span>
+      </p>
+    </div>
+    <div>
+      <p class="text-xs text-gray-500 mb-1">達成率</p>
+      <p class="text-2xl font-bold text-gray-900">
+        <%= @certification.achievement_rate %><span class="text-sm font-normal text-gray-500 ml-0.5">%</span>
+      </p>
+    </div>
+    <div>
+      <p class="text-xs text-gray-500 mb-1">残り日数</p>
+      <p class="text-2xl font-bold text-gray-900">
+        <%= @certification.remaining_days %><span class="text-sm font-normal text-gray-500 ml-1">日</span>
+      </p>
+    </div>
+  </div>
+
+  <%# 進捗バー %>
+  <div class="bg-white rounded-lg shadow px-6 pt-5 pb-4 mb-6">
+    <div class="flex justify-between text-sm text-gray-500 mb-2">
+      <span>累計 <span class="font-medium text-gray-900"><%= @certification.total_studied_minutes %></span> 分</span>
+      <span>目標 <span class="font-medium text-gray-900"><%= @certification.target_minutes %></span> 分</span>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+      <div class="bg-blue-500 h-4 rounded-full transition-all duration-500"
+           style="width: <%= @certification.achievement_rate %>%"></div>
+    </div>
+    <p class="text-right text-xs text-gray-400 mt-1"><%= @certification.achievement_rate %>% 達成</p>
+  </div>
+
+  <%# 記録履歴（日付降順） %>
+  <div class="bg-white rounded-lg shadow p-6 mb-6">
+    <h2 class="text-sm font-semibold text-gray-700 mb-4">記録履歴</h2>
+    <% if @daily_records.empty? %>
+      <p class="text-gray-400 text-sm text-center py-2">まだ記録がありません。</p>
+    <% else %>
+      <ul class="divide-y divide-gray-100">
+        <% @daily_records.each do |record| %>
+          <li class="flex justify-between items-start py-3 text-sm">
+            <span class="text-gray-500 w-36 shrink-0"><%= record[:date].strftime("%Y年%m月%d日") %></span>
+            <% if record[:log] %>
+              <div class="flex-1 text-right">
+                <span class="font-medium text-gray-900"><%= record[:log].studied_minutes %> 分</span>
+                <% if record[:log].memo.present? %>
+                  <p class="text-xs text-gray-400 mt-0.5 text-left"><%= record[:log].memo %></p>
+                <% end %>
+              </div>
+            <% else %>
+              <span class="text-gray-400 text-xs">記録なし → 翌日繰越済</span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+
+  <div class="flex justify-between items-center">
+    <%= link_to "ダッシュボードに戻る", @certification,
+        class: "text-blue-600 hover:underline text-sm" %>
+    <%= link_to "学習を記録する", new_certification_study_log_path(@certification),
+        class: "bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition text-sm" %>
+  </div>
+</div>

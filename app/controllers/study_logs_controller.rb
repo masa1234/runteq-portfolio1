@@ -2,6 +2,14 @@ class StudyLogsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_certification
 
+  def index
+    logs_by_date = @certification.study_logs.index_by(&:logged_on)
+    start_date = @certification.created_at.to_date
+    @daily_records = (start_date..Date.current).to_a.reverse.map do |date|
+      { date: date, log: logs_by_date[date] }
+    end
+  end
+
   def new
     @study_log = @certification.study_logs.new(logged_on: Date.current)
   end
