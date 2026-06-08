@@ -10,6 +10,16 @@ class Certification < ApplicationRecord
 
   def total_studied_minutes
     study_logs.sum(:studied_minutes)
+  rescue NameError, ActiveRecord::StatementInvalid
+    0
+  end
+
+  def remaining_days
+    (exam_date - Date.current).to_i
+  end
+
+  def achievement_rate
+    [(total_studied_minutes * 100.0 / target_minutes).to_i, 100].min
   end
 
   def elapsed_days
