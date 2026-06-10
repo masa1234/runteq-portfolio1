@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   get "mypage" => "mypage#index", as: :mypage
+  get "terms" => "static_pages#terms", as: :terms
+  get "privacy_policy" => "static_pages#privacy_policy", as: :privacy_policy
 
   resources :certifications, only: [:new, :create, :show, :edit, :update] do
     resources :study_logs, only: [:new, :create, :index]

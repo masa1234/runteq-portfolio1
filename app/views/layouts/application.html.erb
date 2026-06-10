@@ -38,5 +38,15 @@
     <main class="container mx-auto mt-12 px-5 flex">
       <%= yield %>
     </main>
+
+    <footer class="mt-16 border-t bg-white">
+      <div class="container mx-auto px-5 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-400">
+        <p>&copy; 2026 合格ペース管理アプリ</p>
+        <nav class="flex gap-4">
+          <%= link_to "利用規約", terms_path, class: "hover:text-blue-600 transition" %>
+          <%= link_to "プライバシーポリシー", privacy_policy_path, class: "hover:text-blue-600 transition" %>
+        </nav>
+      </div>
+    </footer>
   </body>
 </html>
