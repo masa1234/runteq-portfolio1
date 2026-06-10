@@ -15,6 +15,18 @@
     </div>
   </div>
 
+  <%# 🔴遅れ判定時の再計算メッセージ %>
+  <% if @certification.pace_status == :behind %>
+    <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6 flex items-start gap-3">
+      <span class="text-xl leading-none mt-0.5">💪</span>
+      <p class="text-sm text-orange-800">
+        今日から毎日
+        <span class="font-bold text-lg"><%= @certification.daily_quota_minutes %></span>
+        分学習すれば、試験日までに目標を達成できます！
+      </p>
+    </div>
+  <% end %>
+
   <%# 今日のノルマ（大きく表示） %>
   <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6 text-center">
     <p class="text-sm font-medium text-blue-600 mb-1">今日のノルマ</p>
