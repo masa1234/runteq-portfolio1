@@ -15,6 +15,15 @@
     </div>
   </div>
 
+  <%# ペース判定の注記（折りたたみ） %>
+  <details class="mb-6 text-xs text-gray-400 cursor-pointer">
+    <summary class="hover:text-gray-600 transition select-none">ペース判定について</summary>
+    <ul class="mt-2 ml-1 space-y-1 list-disc list-inside">
+      <li>判定はユーザーが設定した目標時間に対するものです</li>
+      <li>🟢順調の判定は合格を保証するものではありません</li>
+    </ul>
+  </details>
+
   <%# 🔴遅れ判定時の再計算メッセージ %>
   <% if @certification.pace_status == :behind %>
     <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6 flex items-start gap-3">
