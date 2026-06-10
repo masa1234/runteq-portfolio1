@@ -1,7 +1,57 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-50">
-  <div class="text-center">
-    <h1 class="text-3xl font-bold text-gray-900 mb-4">合格ペース管理アプリ</h1>
-    <p class="text-gray-600 mb-8">受験申込済みの社会人エンジニアが、今日自分が合格ペースにいるかを確認できるサービスです。</p>
-    <p class="text-sm text-gray-400">🚧 現在開発中です 🚧</p>
+<%# ヒーローセクション %>
+<section class="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-24 px-4">
+  <div class="max-w-3xl mx-auto text-center">
+    <p class="text-blue-200 text-sm font-semibold tracking-widest uppercase mb-4">資格取得ペース管理</p>
+    <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">
+      今日、合格ペースで<br>勉強できていますか？
+    </h1>
+    <p class="text-blue-100 text-lg mb-10 leading-relaxed">
+      試験日・目標時間を登録するだけで、<br class="hidden sm:inline">
+      毎日のノルマと達成状況をひと目で確認できます。
+    </p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <%= link_to "無料ではじめる", new_user_registration_path,
+          class: "bg-white text-blue-700 font-bold py-3 px-8 rounded-full hover:bg-blue-50 transition shadow-lg" %>
+      <%= link_to "ログイン", new_user_session_path,
+          class: "border-2 border-white text-white font-bold py-3 px-8 rounded-full hover:bg-blue-700 transition" %>
+    </div>
   </div>
-</div>
+</section>
+
+<%# 機能紹介セクション %>
+<section class="bg-white py-20 px-4">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-2xl font-bold text-gray-900 text-center mb-12">こんな人に使ってほしい</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+      <div class="text-center">
+        <div class="text-4xl mb-3">📅</div>
+        <h3 class="font-bold text-gray-900 mb-2">試験日まで逆算</h3>
+        <p class="text-sm text-gray-500">試験日と目標学習時間を登録すると、毎日のノルマを自動計算します。</p>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl mb-3">📊</div>
+        <h3 class="font-bold text-gray-900 mb-2">ペース判定バッジ</h3>
+        <p class="text-sm text-gray-500">🟢順調・🟡要注意・🔴遅れの3段階で、今の学習ペースを一目で確認。</p>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl mb-3">💪</div>
+        <h3 class="font-bold text-gray-900 mb-2">遅れても巻き返せる</h3>
+        <p class="text-sm text-gray-500">遅れ判定のときは「今日から毎日〇分で間に合う」と前向きなメッセージを表示。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# CTAセクション %>
+<section class="bg-blue-50 py-16 px-4">
+  <div class="max-w-xl mx-auto text-center">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">まずは資格を登録してみよう</h2>
+    <p class="text-gray-500 mb-8">登録無料・1分で設定完了</p>
+    <%= link_to "無料ではじめる", new_user_registration_path,
+        class: "inline-block bg-blue-600 text-white font-bold py-3 px-10 rounded-full hover:bg-blue-700 transition shadow-md" %>
+    <p class="mt-4 text-sm text-gray-400">
+      すでにアカウントをお持ちの方は
+      <%= link_to "ログイン", new_user_session_path, class: "text-blue-600 hover:underline" %>
+    </p>
+  </div>
+</section>
